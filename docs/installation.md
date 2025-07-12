@@ -21,9 +21,10 @@
 ### 2. Install Blackbird SDK
 
 ```bash
-# Install from source (development)git clone https://github.com/blackbird/blackbird-sdk.git
+# Install from source (development)
+git clone https://github.com/blackbird/blackbird-sdk.git
 cd blackbird-sdk
-#install the requirements
+# install the requirements
 pip install -r requirements.txt
 pip install -e .
 # Or install from PyPI (when available)pip install blackbird-sdk

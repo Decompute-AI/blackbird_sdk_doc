@@ -61,10 +61,8 @@ for key, value in backend_config.items():
 
 ```python
 class BackendHealthMonitor:
-“““Comprehensive backend health monitoring system.”“”
-
-```
-def __init__(self, backend_manager):
+    """Comprehensive backend health monitoring system."""
+    def __init__(self, backend_manager):
     self.backend_manager = backend_manager
     self.health_history = []
     self.alert_thresholds = {
@@ -264,26 +262,25 @@ def generate_health_report(self):
     if not latest_check:
         return "No health data available"
 
+    # Corrected f-string with proper quotes
     report = f"""
-```
-
 # BACKEND HEALTH REPORT
 
-Generated: {datetime.fromtimestamp(latest_check[‘timestamp’]).strftime(‘%Y-%m-%d %H:%M:%S’)}
+Generated: {datetime.fromtimestamp(latest_check['timestamp']).strftime('%Y-%m-%d %H:%M:%S')}
 
 CURRENT STATUS:
-- Overall Health: {‘✅ Healthy’ if latest_check[‘overall_healthy’] else ‘❌ Unhealthy’}
-- Response Time: {latest_check.get(‘checks’, {}).get(‘connectivity’, {}).get(‘response_time_ms’, ‘N/A’)}ms
-- CPU Usage: {latest_check.get(‘metrics’, {}).get(‘cpu_usage_percent’, ‘N/A’)}%
-- Memory Usage: {latest_check.get(‘metrics’, {}).get(‘memory_usage_percent’, ‘N/A’)}%
+- Overall Health: {'✅ Healthy' if latest_check['overall_healthy'] else '❌ Unhealthy'}
+- Response Time: {latest_check.get('checks', {}).get('connectivity', {}).get('response_time_ms', 'N/A')}ms
+- CPU Usage: {latest_check.get('metrics', {}).get('cpu_usage_percent', 'N/A')}%
+- Memory Usage: {latest_check.get('metrics', {}).get('memory_usage_percent', 'N/A')}%
 
 24-HOUR TRENDS:
-- Uptime: {trends_24h.get(‘uptime_percentage’, 0):.1f}%
-- Average Response Time: {trends_24h.get(‘average_response_time_ms’, 0):.0f}ms
-- Total Health Checks: {trends_24h.get(‘total_checks’, 0)}
-- Issues Detected: {trends_24h.get(‘unhealthy_checks’, 0)}
+- Uptime: {trends_24h.get('uptime_percentage', 0):.1f}%
+- Average Response Time: {trends_24h.get('average_response_time_ms', 0):.0f}ms
+- Total Health Checks: {trends_24h.get('total_checks', 0)}
+- Issues Detected: {trends_24h.get('unhealthy_checks', 0)}
 
 RECENT ALERTS
-
-
 """
+    return report
+```
