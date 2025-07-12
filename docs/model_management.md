@@ -1,4 +1,4 @@
-# 6. Model Management & Fine-tuning
+# Model Management & Fine-tuning
 
 ## Understanding the Model Management Architecture
 
