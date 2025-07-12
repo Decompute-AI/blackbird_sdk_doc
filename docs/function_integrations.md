@@ -64,7 +64,9 @@ The calculator integration provides comprehensive mathematical capabilities that
 
 **Unit Conversion and Formatting**: The calculator can automatically handle unit conversions and format results appropriately for different contexts. Whether calculating distances, weights, temperatures, or financial amounts, the system ensures that results are presented in formats that users will find meaningful and actionable.
 
-##### Code Examples: Calculator Integration
+## Core Integration Features
+
+### Calculator Integration
 
 ```python
 from blackbird_sdk import BlackbirdSDK

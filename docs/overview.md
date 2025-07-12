@@ -1,3 +1,9 @@
+# Blackbird SDK - Comprehensive Documentation
+
+Created: July 11, 2025 2:56 PM
+
+# Blackbird SDK - Complete User Guide
+
 # Overview
 
 The Blackbird SDK is a comprehensive AI agent creation and management platform that enables developers to build, deploy, and manage custom AI agents with advanced capabilities including file processing, web search, function calling, and enterprise-grade features.

@@ -134,7 +134,7 @@ This comprehensive chat system provides the foundation for building sophisticate
 
 <div style="text-align: center">⁂</div>
 
-## Core Chat Features
+## Core Chat Features Usage Examples
 
 ### Basic Chat Interface
 

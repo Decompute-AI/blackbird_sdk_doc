@@ -24,7 +24,9 @@ The Session Manager serves as the central orchestrator for all user session acti
 
 **Advanced User Tier Management**: The system supports multiple user tiers—from free trial users to enterprise customers—each with different capabilities, resource allocations, and access permissions. The Session Manager automatically applies appropriate policies based on user classification and can seamlessly handle tier upgrades or downgrades.
 
-#### Code Examples: Session Creation, Management, Information, and Status
+## Core Session Features  Examples
+
+### Session Creation and Management
 
 ```python
 from blackbird_sdk import BlackbirdSDK

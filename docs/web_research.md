@@ -24,7 +24,9 @@ The Web Search Backend provides the foundational search capabilities that enable
 
 **Search Result Caching**: To improve performance and reduce API usage, the system implements intelligent caching of search results. Frequently requested queries are cached temporarily, and the system can serve cached results when appropriate while ensuring that time-sensitive queries always receive fresh results.
 
-##### Code Examples: Basic Search and Agent Integration
+## Core Search Features Usage Examples
+
+### Basic Web Search
 
 ```python
 from blackbird_sdk import BlackbirdSDK
