@@ -22,8 +22,8 @@
 
 ```bash
 # Install from source (development)
-git clone https://github.com/blackbird/blackbird-sdk.git
-cd blackbird-sdk
+git clone [repository link to be added here]
+cd blackbird_sdk
 # install the requirements
 pip install -r requirements.txt
 pip install -e .
