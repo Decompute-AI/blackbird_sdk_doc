@@ -23,6 +23,9 @@
 ```bash
 # Install from source (development)
 git clone [repository link to be added here]
+## for mac users :
+pip install -r requirements_mac_updated.txt
+## for windows users
 cd blackbird_sdk
 # install the requirements
 pip install -r requirements.txt
