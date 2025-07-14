@@ -35,7 +35,10 @@ pip install -e .
 ```python
 # Test basic importpython -c "from blackbird_sdk import BlackbirdSDK; print('✅ Installation successful')"# Check versionpython -c "import blackbird_sdk; print(f'Version: {blackbird_sdk.__version__}')"
 ```
-
+### 4. Download default models
+```shell
+python blackbird_sdk/utils/model_downloader.py
+```
 ### Quick Start
 
 ### Basic Usage Example
