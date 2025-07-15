@@ -175,11 +175,11 @@ Next, you will find working code examples demonstrating how to upload a single f
 
 ### Document Formats
 
-- **PDF**: Text extraction, OCR for scanned documents
-- **Microsoft Office**: .docx, .xlsx, .pptx
-- **Text Files**: .txt, .md, .csv, .json, .yaml
-- **Images**: .jpg, .png, .gif, .bmp, .tiff
-- **Audio**: .wav, .mp3, .m4a, .flac
+- **Text Files**: .txt, .json
+- **PDF**: .pdf
+- **Microsoft Office**: .docx, .xlsx, .xls
+- **Audio**: .wav, .m4a, .mp3
+- **Code**: .py, .js
 
 ### File Processing Features
 
