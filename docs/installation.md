@@ -12,13 +12,40 @@
 
 ### 1. Environment Setup
 
+It is highly recommended to create a dedicated virtual environment for the SDK to avoid dependency conflicts.
+
+**For Windows:**
 ```bash
-# Create virtual environmentpython -m venv blackbird_env
-# Activate environment# Windows:blackbird_env\Scripts\activate# macOS/Linux:source blackbird_env/bin/activate
-# Upgrade pippython -m pip install --upgrade pip
+# Create a virtual environment named 'blackbird_env'
+python -m venv blackbird_env
+
+# Activate the environment
+blackbird_env\Scripts\activate
 ```
 
-### 2. Install Blackbird SDK
+**For macOS/Linux:**
+```bash
+# Create a virtual environment named 'blackbird_env'
+python3 -m venv blackbird_env
+
+# Activate the environment
+source blackbird_env/bin/activate
+```
+
+Once the environment is activated, upgrade `pip`:
+```bash
+python -m pip install --upgrade pip
+```
+
+### 2. Install PyTorch (for Windows users with NVIDIA GPUs)
+
+If you are a Windows user with an NVIDIA GPU, installing PyTorch with CUDA support is required for optimal performance. Run the following command in your activated environment:
+
+```bash
+pip install torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124 --index-url https://download.pytorch.org/whl/cu124
+```
+
+### 3. Install Blackbird SDK
 
 ```bash
 # Install from source (development)
