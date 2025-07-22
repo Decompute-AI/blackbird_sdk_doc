@@ -2,6 +2,8 @@
 
 ### System Requirements
 
+- **Python**: 3.12
+
 **CUDA Systems:**
 
 - Windows 10/11 or Linux (Ubuntu 18.04+)
@@ -48,9 +50,9 @@ Users need to:
 
 1.  Download the Mac package from the license server.
 2.  Extract the ZIP file and rename the extracted folder to `blackbird_sdk`.
-3.  Set up your Python environment:
+3.  Set up your Python 3.12 environment:
     ```bash
-    python -m venv blackbird_env
+    python3.12 -m venv blackbird_env
     source blackbird_env/bin/activate
     ```
 4.  Install dependencies:
