@@ -135,6 +135,30 @@ export PYTHONPATH=$PYTHONPATH:/path/to/blackbird_sdk:/path/to/pyarmor_runtime
 
 **Note:** Replace `C:\\path\\to\\` or `/path/to/` with the actual path to the extracted SDK directory.
 
+#### Error: SDK Fails to Initialize
+
+If the SDK fails to initialize, it may be because another process is already using the default port (5012). To resolve this, you need to find and stop the process using that port.
+
+**Windows:**
+1.  Find the process ID (PID) using port 5012:
+    ```bash
+    netstat -ano | findstr :5012
+    ```
+2.  Kill the process using its PID (replace `YOUR_PID` with the actual PID from the previous command):
+    ```bash
+    taskkill /PID YOUR_PID /F
+    ```
+
+**macOS/Linux:**
+1.  Find the process ID (PID) using port 5012:
+    ```bash
+    lsof -i :5012
+    ```
+2.  Kill the process using its PID (replace `YOUR_PID` with the actual PID from the previous command):
+    ```bash
+    kill -9 YOUR_PID
+    ```
+
 **Mac Systems:**
 
 ```python
