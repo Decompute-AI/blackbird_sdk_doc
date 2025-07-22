@@ -34,7 +34,12 @@ Users need to:
 4.  Activate the virtual environment:
     *   **Windows:** `.\\venv\\Scripts\\Activate.ps1`
     *   **Linux:** `source venv/bin/activate`
-5.  Test the SDK:
+5.  **For Windows:** Install dependencies in the correct order:
+    ```bash
+    pip install -r requirements.txt
+    pip install torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124 --index-url https://download.pytorch.org/whl/cu124
+    ```
+6.  Test the SDK:
     ```python
     python -c "from sdk.blackbird_sdk_obfuscated import BlackBirdSDK; print('SDK loaded successfully!')"
     ```
@@ -106,6 +111,29 @@ async def main():
 
 asyncio.run(main())
 ```
+
+### Common Errors and Fixes
+
+#### Error: `Could not find module blackbird_sdk` or `Could not find module pyarmor_runtime`
+
+This error occurs when the Python interpreter cannot find the necessary SDK files. To resolve this, you need to add the `blackbird_sdk` and `pyarmor_runtime` folders to your Python path.
+
+**Windows (Command Prompt):**
+```bash
+set PYTHONPATH=%PYTHONPATH%;C:\\path\\to\\blackbird_sdk;C:\\path\\to\\pyarmor_runtime
+```
+
+**Windows (PowerShell):**
+```powershell
+$env:PYTHONPATH = "$env:PYTHONPATH;C:\\path\\to\\blackbird_sdk;C:\\path\\to\\pyarmor_runtime"
+```
+
+**Linux/macOS (Bash):**
+```bash
+export PYTHONPATH=$PYTHONPATH:/path/to/blackbird_sdk:/path/to/pyarmor_runtime
+```
+
+**Note:** Replace `C:\\path\\to\\` or `/path/to/` with the actual path to the extracted SDK directory.
 
 **Mac Systems:**
 
