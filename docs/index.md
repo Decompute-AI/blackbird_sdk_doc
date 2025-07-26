@@ -4,7 +4,6 @@ Welcome to the Blackbird SDK documentation. This documentation provides a compre
 
 ## Table of Contents
 
-*   [Installation](installation.md)
 *   [Overview](overview.md)
 *   [Agent Creation](agent_creation.md)
 *   [Chat Features](chat_features.md)
