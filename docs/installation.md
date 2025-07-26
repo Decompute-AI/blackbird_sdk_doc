@@ -2,6 +2,8 @@
 
 ### System Requirements
 
+- **Python**: 3.12
+
 **CUDA Systems:**
 
 - Windows 10/11 or Linux (Ubuntu 18.04+)
@@ -29,12 +31,17 @@ Users need to:
 **For CUDA Systems (Windows/Linux with NVIDIA GPUs):**
 
 1.  Download the CUDA package from the license server.
-2.  Extract the ZIP file to your desired directory.
-3.  Open PowerShell (Windows) or Terminal (Linux) in the extracted directory.
+2.  Extract the ZIP file and rename the extracted folder to `blackbird_sdk`.
+3.  Open PowerShell (Windows) or Terminal (Linux) in the `blackbird_sdk` directory.
 4.  Activate the virtual environment:
     *   **Windows:** `.\\venv\\Scripts\\Activate.ps1`
     *   **Linux:** `source venv/bin/activate`
-5.  Test the SDK:
+5.  **For Windows:** Install dependencies in the correct order:
+    ```bash
+    pip install -r requirements.txt
+    pip install torch==2.6.0+cu124 torchvision==0.21.0+cu124 torchaudio==2.6.0+cu124 --index-url https://download.pytorch.org/whl/cu124
+    ```
+6.  Test the SDK:
     ```python
     python -c "from sdk.blackbird_sdk_obfuscated import BlackBirdSDK; print('SDK loaded successfully!')"
     ```
@@ -42,10 +49,10 @@ Users need to:
 **For Mac Systems (Apple Silicon + MLX):**
 
 1.  Download the Mac package from the license server.
-2.  Extract the ZIP file to your desired directory.
-3.  Set up your Python environment:
+2.  Extract the ZIP file and rename the extracted folder to `blackbird_sdk`.
+3.  Set up your Python 3.12 environment:
     ```bash
-    python -m venv blackbird_env
+    python3.12 -m venv blackbird_env
     source blackbird_env/bin/activate
     ```
 4.  Install dependencies:
@@ -106,6 +113,53 @@ async def main():
 
 asyncio.run(main())
 ```
+
+### Common Errors and Fixes
+
+#### Error: `Could not find module blackbird_sdk` or `Could not find module pyarmor_runtime`
+
+This error occurs when the Python interpreter cannot find the necessary SDK files. To resolve this, you need to add the `blackbird_sdk` folder (which contains the `pyarmor_runtime` folder) to your Python path.
+
+**Windows (Command Prompt):**
+```bash
+set PYTHONPATH=%PYTHONPATH%;C:\\path\\to\\blackbird_sdk
+```
+
+**Windows (PowerShell):**
+```powershell
+$env:PYTHONPATH = "$env:PYTHONPATH;C:\\path\\to\\blackbird_sdk"
+```
+
+**Linux/macOS (Bash):**
+```bash
+export PYTHONPATH=$PYTHONPATH:/path/to/blackbird_sdk
+```
+
+**Note:** Replace `C:\\path\\to\\blackbird_sdk` or `/path/to/blackbird_sdk` with the actual path to the `blackbird_sdk` directory you created in the installation steps.
+
+#### Error: SDK Fails to Initialize
+
+If the SDK fails to initialize, it may be because another process is already using the default port (5012). To resolve this, you need to find and stop the process using that port.
+
+**Windows:**
+1.  Find the process ID (PID) using port 5012:
+    ```bash
+    netstat -ano | findstr :5012
+    ```
+2.  Kill the process using its PID (replace `YOUR_PID` with the actual PID from the previous command):
+    ```bash
+    taskkill /PID YOUR_PID /F
+    ```
+
+**macOS/Linux:**
+1.  Find the process ID (PID) using port 5012:
+    ```bash
+    lsof -i :5012
+    ```
+2.  Kill the process using its PID (replace `YOUR_PID` with the actual PID from the previous command):
+    ```bash
+    kill -9 YOUR_PID
+    ```
 
 **Mac Systems:**
 
