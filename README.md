@@ -12,6 +12,7 @@
 - Web Search
 - All Features
 
+For detailed documentation, please see the [Blackbird SDK Documentation](./docs/index.md).
 ---
 
 ## Installation & Setup
