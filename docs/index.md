@@ -15,4 +15,4 @@ Welcome to the Blackbird SDK documentation. This documentation provides a compre
 *   [Function Integrations](function_integrations.md)
 *   [Enterprise Features](enterprise_features.md)
 *   [Backend Management](backend_management.md)
-*   [Examples](streaming_ui.md)
+*   [Examples](streaming_ui.py)
