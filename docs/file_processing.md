@@ -1,108 +1,99 @@
-# File Upload and Processing
+# RAG and File Upload
 
-The File Service provides a straightforward way to upload and process files using the SDK. It handles file validation, uploading, and provides utilities for inspecting file properties.
+The Blackbird SDK provides a robust system for building Retrieval-Augmented Generation (RAG) context from your files. This allows you to chat with your documents, ask questions about your data, and ground your models in your own knowledge base.
+
+## Quickstart: Uploading a File for RAG
+
+The most straightforward way to use the RAG functionality is to upload a single file.
+
+```python
+from blackbird_sdk import BlackbirdSDK
+
+# Initialize the SDK
+sdk = BlackbirdSDK()
+
+# Initialize an agent
+sdk.initialize_agent("general")
+
+# Upload a file for RAG
+# This returns a process_id that can be used for fine-tuning later
+result = sdk.file_service.upload_for_rag_only("/path/to/your/document.pdf")
+print(result)
+
+# Now you can chat with the agent, which will use the document as context
+response = sdk.send_message("What is the main topic of the document?")
+print(response)
+```
 
 ## Supported File Types
 
-The following file extensions are supported for upload:
+The SDK supports a wide variety of file types, including:
 
-- **Documents**: `.pdf`, `.docx`, `.xls`, `.xlsx`
-- **Text**: `.txt`, `.json`
-- **Code**: `.py`, `.js`
-- **Audio**: `.wav`, `.mp3`, `.m4a`
+-   **Documents:** PDF, DOCX, TXT, MD
+-   **Spreadsheets:** XLSX, XLS, CSV
+-   **Code:** PY, JS, HTML, CSS, JSON, XML, YAML
+-   **Audio:** WAV, MP3, M4A, FLAC
+-   **Images:** JPG, PNG, GIF, BMP, TIFF (requires OCR)
 
-You can programmatically retrieve this list:
+## The File Service
 
-```python
-# Assuming 'sdk' is an initialized SDK instance with a file_service attribute
-supported_types = sdk.file_service.get_supported_extensions()
-print(supported_types)
-# Output: ['.docx', '.js', '.json', '.m4a', '.mp3', '.pdf', '.py', '.txt', '.xls', '.xlsx', '.wav'] (sorted)
-```
-
-## Core Functionality
-
-### File Validation
-
-Before uploading, the SDK performs several validation checks on each file:
-- **Existence**: Ensures the file exists at the specified path.
-- **File Type**: Verifies that the file extension is in the list of supported types.
-- **File Size**: Checks that the file does not exceed the maximum allowed size.
-- **Readability**: Confirms that the file can be opened and read.
-
-If any of these checks fail, a `FileProcessingError` is raised with a descriptive message.
-
-### Getting File Information
-
-You can retrieve detailed information about a local file before uploading it using `get_file_info()`.
-
-```python
-from blackbird_sdk.utils.errors import FileProcessingError
-
-# Assuming 'sdk' is an initialized SDK instance
-try:
-    file_info = sdk.file_service.get_file_info("path/to/your/document.pdf")
-    print(file_info)
-except FileProcessingError as e:
-    print(f"Error: {e}")
-
-# Example Output:
-# {
-#     'path': '.../path/to/your/document.pdf',
-#     'name': 'document.pdf',
-#     'extension': '.pdf',
-#     'size_bytes': 123456,
-#     'size_mb': 0.12,
-#     'mime_type': 'application/pdf',
-#     'is_supported': True,
-#     'created': 1678886400.0,
-#     'modified': 1678886400.0
-# }
-```
-
-## Uploading Files
-
-### Uploading a Single File
-
-Use the `upload_single_file()` method to process a single document.
-
-```python
-# Assuming 'sdk' is an initialized SDK instance
-file_to_upload = "path/to/your/report.docx"
-
-try:
-    # The 'agent_type' and other parameters can be specified.
-    # Default values are used if not provided.
-    upload_result = sdk.file_service.upload_single_file(
-        file_path=file_to_upload,
-        agent_type="finance"
-    )
-    print("Upload successful:")
-    print(upload_result)
-except FileProcessingError as e:
-    print(f"Upload failed: {e}")
-```
+The `FileService` class is the main entry point for all file-related operations. It handles validation, uploading, and processing of files for RAG.
 
 ### Uploading Multiple Files
 
-Use the `upload_multiple_files()` method to process several documents in a single request. This is more efficient than uploading them one by one.
+You can upload multiple files at once to create a unified RAG context.
 
 ```python
-# Assuming 'sdk' is an initialized SDK instance
-files_to_upload = [
-    "path/to/your/report.docx",
-    "path/to/your/data.xlsx",
-    "path/to/your/notes.txt"
-]
+file_paths = ["/path/to/doc1.pdf", "/path/to/data.csv"]
+result = sdk.file_service.upload_files_rag(file_paths)
+print(result)
 
-try:
-    # The method validates all files before starting the upload.
-    upload_result = sdk.file_service.upload_multiple_files(
-        file_paths=files_to_upload,
-        agent_type="research"
-    )
-    print("Batch upload successful:")
-    print(upload_result)
-except FileProcessingError as e:
-    print(f"Batch upload failed: {e}")
+# Chat with the combined knowledge of both documents
+response = sdk.send_message("Compare the data in the PDF and the CSV.")
+print(response)
 ```
+
+### Validation
+
+The SDK automatically validates files before uploading, checking for things like file size, type, and readability. You can also manually validate a file:
+
+```python
+is_valid, message = sdk.file_service.validate_file("/path/to/your/file.txt")
+if is_valid:
+    print("File is valid!")
+else:
+    print(f"Validation failed: {message}")
+```
+
+## Combining RAG with Fine-Tuning
+
+You can use the files you upload for RAG as a data source for fine-tuning a model. This creates a powerful workflow where you can ground a model in your data and then further specialize it to your specific tasks.
+
+```python
+# 1. Upload a file for RAG, which returns a process_id
+result = sdk.file_service.upload_for_rag_only("/path/to/your/document.pdf")
+process_id = result["process_id"]
+
+# 2. Use the process_id to start a fine-tuning job
+fine_tuning_result = sdk.file_service.start_finetuning(process_id)
+print(fine_tuning_result)
+```
+
+There is also a convenience method that combines these two steps:
+
+```python
+result = sdk.file_service.upload_and_finetune_single_file("/path/to/your/document.pdf")
+print(result)
+```
+
+## How it Works
+
+When you upload a file, the SDK's data pipeline performs the following steps:
+
+1.  **Parsing:** The file is parsed based on its type (e.g., PDF, DOCX, CSV).
+2.  **Text Extraction:** Text and other relevant data (like tables) are extracted.
+3.  **Chunking:** The extracted text is divided into smaller, manageable chunks.
+4.  **Embedding:** Each chunk is converted into a numerical representation (embedding) using a pre-trained model.
+5.  **Indexing:** The embeddings are stored in a searchable index (like FAISS).
+
+When you send a message to the agent, the SDK searches the index for the most relevant chunks of text and provides them to the model as context, allowing it to generate a more accurate and informed response.
